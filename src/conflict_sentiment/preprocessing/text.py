@@ -53,7 +53,9 @@ class TextPreprocessor:
         text = text.lower()
         tokens = self._tokenizer.tokenize(text)
         tokens = [t for t in tokens if t not in self._stopwords]
-        lemmas = [self._lemmatizer.lemmatize(t) for t in tokens]
+        lemmas = [
+            self._lemmatizer.lemmatize(self._lemmatizer.lemmatize(t, pos="v")) for t in tokens
+        ]
         return " ".join(lemmas)
 
     def tokenize(self, text: str) -> list[str]:
